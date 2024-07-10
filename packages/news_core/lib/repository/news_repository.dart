@@ -11,7 +11,9 @@ class NewsRepositoryImp extends NewsRepository {
   final NewsApi api;
 
   @override
-  Future<NewsData> getNews({NewsCategory? category, NewsSort? sort}) async =>
-      await api.getNews(category: category, sort: sort)
-    ;
+  Future<NewsData> getNews({NewsCategory? category, NewsSort? sort}) async {
+    var json =  await api.getNews(category: category, sort: sort);
+
+    return NewsData.fromJson(json);
+  }
 }
