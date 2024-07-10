@@ -5,8 +5,8 @@ enum NewsSort {
 }
 
 enum NewsCategory {
+  apple,
   tesla,
   microsoft,
-  apple,
   google,
 }
