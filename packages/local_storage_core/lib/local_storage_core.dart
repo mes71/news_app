@@ -1,7 +1,4 @@
 library local_storage_core;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
-}
+export 'entity/article_entity.dart';
+export 'repository/local_storage_repository.dart';

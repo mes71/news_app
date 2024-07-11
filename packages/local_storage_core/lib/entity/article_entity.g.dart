@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'news_entity.dart';
+part of 'article_entity.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
@@ -43,17 +43,17 @@ class SourceAdapter extends TypeAdapter<Source> {
           typeId == other.typeId;
 }
 
-class ArticleAdapter extends TypeAdapter<Article> {
+class ArticleEntityAdapter extends TypeAdapter<ArticleEntity> {
   @override
   final int typeId = 2;
 
   @override
-  Article read(BinaryReader reader) {
+  ArticleEntity read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Article(
+    return ArticleEntity(
       source: fields[0] as Source,
       author: fields[1] as String?,
       title: fields[2] as String,
@@ -67,7 +67,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
   }
 
   @override
-  void write(BinaryWriter writer, Article obj) {
+  void write(BinaryWriter writer, ArticleEntity obj) {
     writer
       ..writeByte(9)
       ..writeByte(0)
@@ -96,7 +96,7 @@ class ArticleAdapter extends TypeAdapter<Article> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ArticleAdapter &&
+      other is ArticleEntityAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

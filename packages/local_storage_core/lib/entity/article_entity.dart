@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive/hive.dart';
 
-part 'news_entity.g.dart';
+part 'article_entity.g.dart';
 
 @HiveType(typeId: 1)
 class Source extends HiveObject {
@@ -19,7 +19,7 @@ class Source extends HiveObject {
 }
 
 @HiveType(typeId: 2)
-class Article extends HiveObject {
+class ArticleEntity extends HiveObject {
   @HiveField(0)
   Source source;
 
@@ -47,7 +47,7 @@ class Article extends HiveObject {
   @HiveField(8)
   Uint8List? imageData;
 
-  Article(
+  ArticleEntity(
       {required this.source,
       this.author,
       required this.title,
