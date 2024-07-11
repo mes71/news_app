@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/data/controller/root/root_controller.dart';
@@ -13,14 +14,19 @@ class NewsPage extends GetView<RootController> {
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
-              expandedHeight: 250.0,
-              floating: false,
-              pinned: true,
-              flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(
-                controller.selectedArticle?.urlToImage ?? '',
-              )),
-            ),
+                expandedHeight: 250.0,
+                floating: false,
+                pinned: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: CachedNetworkImage(
+                      imageUrl: controller.selectedArticle?.urlToImage ?? '',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 200,
+                      placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          )),
+                )),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

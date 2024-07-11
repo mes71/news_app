@@ -13,9 +13,12 @@ dependencies:
   get: ^4.6.6
   get_it: ^7.7.0
   connectivity_plus: ^6.0.3
+  cached_network_image: ^3.3.1
 
   news_core:
     path: packages/news_core
+  local_storage_core:
+    path: packages/local_storage_core
 
 dev_dependencies:
   flutter_test:

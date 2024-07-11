@@ -1,5 +1,6 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:local_storage_core/entity/article_entity.dart';
+import 'package:local_storage_core/local_storage_core.dart';
 
 import 'data_source.dart';
 
@@ -17,6 +18,7 @@ class LocalSource extends LocalDataSource {
   Future<void> initLocalStorage() async {
     await Hive.initFlutter();
     Hive.registerAdapter(ArticleEntityAdapter());
+    Hive.registerAdapter(SourceAdapter());
     newBox = await Hive.openBox<ArticleEntity>('NewsBox');
   }
 

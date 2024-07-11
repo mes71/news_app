@@ -4,7 +4,9 @@ import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:local_storage_core/local_storage_core.dart';
 import 'package:news_app/data/di/di.dart';
+import 'package:news_app/data/mapper/article_to_entity.dart';
 import 'package:news_app/data/routes/app_pages.dart';
 import 'package:news_core/news_core.dart';
 
@@ -17,13 +19,18 @@ class RootController extends GetxController with StateMixin {
   RxList<Article> newsList = <Article>[].obs;
   Article? selectedArticle;
 
+  late LocalRepository localRepository;
+
   @override
   void onInit() async {
     super.onInit();
+    localRepository = di<LocalStorageRepository>();
     await initConnectivity();
 
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+
+
   }
 
   Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
@@ -54,22 +61,44 @@ class RootController extends GetxController with StateMixin {
 
   Future<void> getNews() async {
     change(null, status: RxStatus.loading());
-    NewsData data =
-        await di<NewsRepository>().getNews(category: selectedCategory.value);
 
-    if (data.totalResults == 0) {
-      change(null, status: RxStatus.empty());
+    if (connectionStatus.contains(ConnectivityResult.none)) {
+      // Load news from local storage if no internet connection
+      try {
+        List<ArticleEntity> cachedNews = localRepository.getAllNews();
+        if (cachedNews.isEmpty) {
+          change(null, status: RxStatus.empty());
+        } else {
+          newsList.clear();
+          newsList.addAll(cachedNews.map((e) => ArticleMapper.fromEntity(e)));
+          change(null, status: RxStatus.success());
+        }
+      } catch (e) {
+        log('Error loading cached news', error: e);
+        change(null, status: RxStatus.error('Error loading cached news'));
+      }
     } else {
-      newsList.clear();
-      newsList.addAll(data.articles);
-
-      change(null, status: RxStatus.success());
-
-      cashNews(newsList.sublist(0, 10));
+      // Fetch news from the network
+      try {
+        NewsData data = await di<NewsRepository>()
+            .getNews(category: selectedCategory.value);
+        if (data.totalResults == 0) {
+          change(null, status: RxStatus.empty());
+        } else {
+          newsList.clear();
+          newsList.addAll(data.articles);
+          change(null, status: RxStatus.success());
+        }
+      } catch (e) {
+        log('Error fetching news', error: e);
+        change(null, status: RxStatus.error('Error fetching news'));
+      }
     }
   }
 
-  Future<void> cashNews(List<Article> newsList) async {}
+  Future<void> cashNews(Article news) async {
+    await localRepository.addNews(ArticleMapper.toEntity(news));
+  }
 
   @override
   void dispose() {

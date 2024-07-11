@@ -55,7 +55,6 @@ class ArticleEntity extends HiveObject {
       required this.url,
       this.urlToImage,
       required this.publishedAt,
-      this.content,
-      required this.imageData});
+      this.content});
 
 }

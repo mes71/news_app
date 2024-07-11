@@ -23,12 +23,15 @@ class HomePage extends GetView<RootController> {
   Widget newsListVIew() {
     return controller.obx(
         (state) => ListView.builder(
-            itemBuilder: (context, index) => ArticleCard(
-                  article: controller.newsList[index],
-                  onPressed: () {
-                    controller.selectArticle(controller.newsList[index]);
-                  },
-                ),
+            itemBuilder: (context, index) {
+              controller.cashNews(controller.newsList[index]);
+              return ArticleCard(
+                article: controller.newsList[index],
+                onPressed: () {
+                  controller.selectArticle(controller.newsList[index]);
+                },
+              );
+            },
             itemCount: controller.newsList.length),
         onLoading: const Center(
           child: CircularProgressIndicator(),

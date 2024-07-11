@@ -62,8 +62,7 @@ class ArticleEntityAdapter extends TypeAdapter<ArticleEntity> {
       urlToImage: fields[5] as String?,
       publishedAt: fields[6] as DateTime,
       content: fields[7] as String?,
-      imageData: fields[8] as Uint8List?,
-    );
+    )..imageData = fields[8] as Uint8List?;
   }
 
   @override
