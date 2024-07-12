@@ -7,13 +7,13 @@ import 'package:news_core/source/news_api.dart';
 
 final di = GetIt.instance;
 
-void setup() {
+void setup({bool skipInit = false}) {
   //news core
   di.registerSingleton<NewsApi>(NewsApiImp());
   di.registerSingleton<NewsRepository>(NewsRepositoryImp(di<NewsApi>()));
 
 //local Storage
-  di.registerSingleton<LocalSource>(LocalSource());
+  di.registerSingleton<LocalSource>(LocalSource(skipInit: skipInit));
   di.registerSingleton<LocalStorageRepository>(
       LocalStorageRepository(di<LocalSource>()));
 }
