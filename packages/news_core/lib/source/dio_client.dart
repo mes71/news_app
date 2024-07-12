@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:news_core/config/config.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioClient {
@@ -19,7 +20,7 @@ class DioClient {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'X-Api-Key': '5deebe04323f4d0faa04863c1c31ed4d'
+          'X-Api-Key': Config.apiKey
         },
       ),
     );

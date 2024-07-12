@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/data/di/di.dart';
 import 'package:news_app/data/routes/routes.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
-void main() {
+Future<void> main() async{
+   DotEnv.dotenv.load(fileName: 'packages/news_core/.env');
   setup();
   runApp(const MyApp());
 }
