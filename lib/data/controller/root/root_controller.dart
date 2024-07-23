@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:local_storage_core/local_storage_core.dart';
+
 import 'package:news_app/data/di/di.dart';
 import 'package:news_app/data/mapper/article_to_entity.dart';
 import 'package:news_app/data/routes/app_pages.dart';
@@ -19,12 +19,12 @@ class RootController extends GetxController with StateMixin {
   RxList<Article> newsList = <Article>[].obs;
   Article? selectedArticle;
 
-  late LocalRepository localRepository;
+  late NetworkDataSourceImp localRepository;
 
   @override
   void onInit() async {
     super.onInit();
-    localRepository = di<LocalStorageRepository>();
+    localRepository = di<NetworkDataSourceImp>();
     await initConnectivity();
 
     _connectivitySubscription =
@@ -49,16 +49,16 @@ class RootController extends GetxController with StateMixin {
     return _updateConnectionStatus(result);
   }
 
-  void changeCategory(NewsCategory category) {
+/*  void changeCategory(NewsCategory category) {
     selectedCategory.value = category;
     getNews();
-  }
+  }*/
 
   void selectArticle(Article article) {
     selectedArticle = article;
     Get.toNamed(Routes.NEWS);
   }
-
+/*
   Future<void> getNews() async {
     change(null, status: RxStatus.loading());
 
@@ -98,11 +98,15 @@ class RootController extends GetxController with StateMixin {
 
   Future<void> cashNews(Article news) async {
     await localRepository.addNews(ArticleMapper.toEntity(news));
-  }
+  }*/
 
   @override
   void dispose() {
     _connectivitySubscription.cancel();
     super.dispose();
+  }
+
+  void getNews() async{
+    await localRepository.getNews();
   }
 }

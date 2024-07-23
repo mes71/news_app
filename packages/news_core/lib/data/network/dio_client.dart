@@ -1,5 +1,5 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
-import 'package:news_core/config/config.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioClient {
@@ -12,6 +12,7 @@ class DioClient {
   late Dio dio;
 
   DioClient._internal() {
+
     dio = Dio(
       BaseOptions(
         baseUrl: 'https://newsapi.org/v2',
@@ -20,7 +21,7 @@ class DioClient {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
-          'X-Api-Key': Config.apiKey
+          'X-Api-Key': dotenv.env['API_KEY']
         },
       ),
     );

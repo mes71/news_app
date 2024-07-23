@@ -24,7 +24,7 @@ class HomePage extends GetView<RootController> {
     return controller.obx(
         (state) => ListView.builder(
             itemBuilder: (context, index) {
-              controller.cashNews(controller.newsList[index]);
+              //controller.cashNews(controller.newsList[index]);
               return ArticleCard(
                 article: controller.newsList[index],
                 onPressed: () {
@@ -80,7 +80,7 @@ class HomePage extends GetView<RootController> {
                     label: Text('${e.name}'),
                     selectedColor: Colors.green,
                     onSelected: (bool selected) {
-                      controller.changeCategory(e);
+                     //controller.changeCategory(e);
                     },
                     selected: controller.selectedCategory.value == e,
                   ),

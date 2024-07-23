@@ -34,7 +34,7 @@ class ArticleCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  article.title,
+                  article.title ?? "",
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
@@ -54,7 +54,8 @@ class ArticleCard extends StatelessWidget {
                           ),
                         ),
                       Text(
-                        DateFormat('yyyy-MM-dd').format(article.publishedAt),
+                        DateFormat('yyyy-MM-dd')
+                            .format(article.publishedAt ?? DateTime.now()),
                         style:
                             const TextStyle(fontSize: 12, color: Colors.grey),
                       ),

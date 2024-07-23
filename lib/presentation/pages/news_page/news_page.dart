@@ -53,7 +53,7 @@ class NewsPage extends GetView<RootController> {
                     const SizedBox(height: 10),
                     Text(
                       DateFormat('yyyy-MM-dd')
-                          .format(controller.selectedArticle!.publishedAt),
+                          .format(controller.selectedArticle!.publishedAt ?? DateTime.now()),
                       style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                     const SizedBox(height: 20),

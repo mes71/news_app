@@ -17,8 +17,6 @@ dependencies:
 
   news_core:
     path: packages/news_core
-  local_storage_core:
-    path: packages/local_storage_core
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +26,4 @@ dev_dependencies:
   mockito: ^5.4.4
 flutter:
   uses-material-design: true
+
