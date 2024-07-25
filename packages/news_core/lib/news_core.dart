@@ -10,6 +10,7 @@ export 'package:intl/intl.dart';
 
 
 
-void main() async {
-  await dotenv.load(fileName: '.env');
-}
+/*
+Future<void> initNewsCore() async{
+  await
+}*/

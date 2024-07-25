@@ -4,16 +4,16 @@ import 'package:news_core/data/utils/date_time_utils.dart';
 import 'dio_client.dart';
 
 abstract class NewsApi {
-  Future<Map<String, dynamic>> _getNews(
+  Future<List<Article>> _getNews(
       {NewsCategory? category, NewsSort? sort, required int page});
 
-  Future<Map<String, dynamic>> getGoogleNews({NewsSort? sort, int page = 1});
+  Future<List<Article>> getGoogleNews({NewsSort? sort, int page = 1});
 
-  Future<Map<String, dynamic>> getAppleNews({NewsSort? sort, int page = 1});
+  Future<List<Article>> getAppleNews({NewsSort? sort, int page = 1});
 
-  Future<Map<String, dynamic>> getMicrosoftNews({NewsSort? sort, int page = 1});
+  Future<List<Article>> getMicrosoftNews({NewsSort? sort, int page = 1});
 
-  Future<Map<String, dynamic>> getTeslaNews({NewsSort? sort, int page = 1});
+  Future<List<Article>> getTeslaNews({NewsSort? sort, int page = 1});
 }
 
 class NewsApiImp extends NewsApi {
@@ -21,7 +21,7 @@ class NewsApiImp extends NewsApi {
   DioClient dioClient = DioClient();
 
   @override
-  Future<Map<String, dynamic>> _getNews(
+  Future<List<Article>> _getNews(
       {NewsCategory? category, NewsSort? sort, required int page}) async {
     Map<String, dynamic> query = {
       'q': category?.name ?? NewsCategory.apple.name,
@@ -32,26 +32,28 @@ class NewsApiImp extends NewsApi {
       'page': page
     };
     var res = await dioClient.dio.get("/everything", queryParameters: query);
-    return res.data;
+    //add category to articles
+    (res.data['articles'] as List<dynamic>).forEach(
+      (e) => e.addEntries([MapEntry("category", category?.name)]),
+    );
+
+    return NewsData.fromJson(res.data).articles;
   }
 
   @override
-  Future<Map<String, dynamic>> getAppleNews(
-          {NewsSort? sort, int page = 1}) async =>
+  Future<List<Article>> getAppleNews({NewsSort? sort, int page = 1}) async =>
       await _getNews(category: NewsCategory.apple, sort: sort, page: page);
 
   @override
-  Future<Map<String, dynamic>> getMicrosoftNews(
+  Future<List<Article>> getMicrosoftNews(
           {NewsSort? sort, int page = 1}) async =>
       await _getNews(category: NewsCategory.microsoft, sort: sort, page: page);
 
   @override
-  Future<Map<String, dynamic>> getTeslaNews(
-          {NewsSort? sort, int page = 1}) async =>
+  Future<List<Article>> getTeslaNews({NewsSort? sort, int page = 1}) async =>
       await _getNews(category: NewsCategory.tesla, sort: sort, page: page);
 
   @override
-  Future<Map<String, dynamic>> getGoogleNews(
-          {NewsSort? sort, int page = 1}) async =>
+  Future<List<Article>> getGoogleNews({NewsSort? sort, int page = 1}) async =>
       await _getNews(category: NewsCategory.google, sort: sort, page: page);
 }

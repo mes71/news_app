@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
+import 'package:news_core/data/model/model.dart';
 
 part 'news_data.freezed.dart';
 part 'news_data.g.dart';
@@ -29,6 +30,7 @@ sealed class Article  with _$Article{
     @HiveField(6) String? urlToImage,
     @HiveField(7) DateTime? publishedAt,
     @HiveField(8) String? content,
+    @HiveField(9) NewsCategory? category,
   }) = _Article;
 
   factory Article.fromJson(Map<String, dynamic> json) =>

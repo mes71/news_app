@@ -25,13 +25,14 @@ class ArticleAdapter extends TypeAdapter<Article> {
       urlToImage: fields[6] as String?,
       publishedAt: fields[7] as DateTime?,
       content: fields[8] as String?,
+      category: fields[9] as NewsCategory?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Article obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(9)
       ..writeByte(1)
       ..write(obj.source)
       ..writeByte(2)
@@ -47,7 +48,9 @@ class ArticleAdapter extends TypeAdapter<Article> {
       ..writeByte(7)
       ..write(obj.publishedAt)
       ..writeByte(8)
-      ..write(obj.content);
+      ..write(obj.content)
+      ..writeByte(9)
+      ..write(obj.category);
   }
 
   @override
@@ -132,6 +135,7 @@ _$ArticleImpl _$$ArticleImplFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['publishedAt'] as String),
       content: json['content'] as String?,
+      category: $enumDecodeNullable(_$NewsCategoryEnumMap, json['category']),
     );
 
 Map<String, dynamic> _$$ArticleImplToJson(_$ArticleImpl instance) =>
@@ -144,7 +148,15 @@ Map<String, dynamic> _$$ArticleImplToJson(_$ArticleImpl instance) =>
       'urlToImage': instance.urlToImage,
       'publishedAt': instance.publishedAt?.toIso8601String(),
       'content': instance.content,
+      'category': _$NewsCategoryEnumMap[instance.category],
     };
+
+const _$NewsCategoryEnumMap = {
+  NewsCategory.apple: 'apple',
+  NewsCategory.tesla: 'tesla',
+  NewsCategory.microsoft: 'microsoft',
+  NewsCategory.google: 'google',
+};
 
 _$SourceImpl _$$SourceImplFromJson(Map<String, dynamic> json) => _$SourceImpl(
       id: json['id'] as String?,

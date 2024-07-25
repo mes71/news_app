@@ -217,6 +217,8 @@ mixin _$Article {
   DateTime? get publishedAt => throw _privateConstructorUsedError;
   @HiveField(8)
   String? get content => throw _privateConstructorUsedError;
+  @HiveField(9)
+  NewsCategory? get category => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -236,7 +238,8 @@ abstract class $ArticleCopyWith<$Res> {
       @HiveField(5) String? url,
       @HiveField(6) String? urlToImage,
       @HiveField(7) DateTime? publishedAt,
-      @HiveField(8) String? content});
+      @HiveField(8) String? content,
+      @HiveField(9) NewsCategory? category});
 
   $SourceCopyWith<$Res>? get source;
 }
@@ -262,6 +265,7 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
     Object? urlToImage = freezed,
     Object? publishedAt = freezed,
     Object? content = freezed,
+    Object? category = freezed,
   }) {
     return _then(_value.copyWith(
       source: freezed == source
@@ -296,6 +300,10 @@ class _$ArticleCopyWithImpl<$Res, $Val extends Article>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as NewsCategory?,
     ) as $Val);
   }
 
@@ -327,7 +335,8 @@ abstract class _$$ArticleImplCopyWith<$Res> implements $ArticleCopyWith<$Res> {
       @HiveField(5) String? url,
       @HiveField(6) String? urlToImage,
       @HiveField(7) DateTime? publishedAt,
-      @HiveField(8) String? content});
+      @HiveField(8) String? content,
+      @HiveField(9) NewsCategory? category});
 
   @override
   $SourceCopyWith<$Res>? get source;
@@ -352,6 +361,7 @@ class __$$ArticleImplCopyWithImpl<$Res>
     Object? urlToImage = freezed,
     Object? publishedAt = freezed,
     Object? content = freezed,
+    Object? category = freezed,
   }) {
     return _then(_$ArticleImpl(
       source: freezed == source
@@ -386,6 +396,10 @@ class __$$ArticleImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String?,
+      category: freezed == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as NewsCategory?,
     ));
   }
 }
@@ -401,7 +415,8 @@ class _$ArticleImpl with HiveObjectMixin implements _Article {
       @HiveField(5) this.url,
       @HiveField(6) this.urlToImage,
       @HiveField(7) this.publishedAt,
-      @HiveField(8) this.content});
+      @HiveField(8) this.content,
+      @HiveField(9) this.category});
 
   factory _$ArticleImpl.fromJson(Map<String, dynamic> json) =>
       _$$ArticleImplFromJson(json);
@@ -430,10 +445,13 @@ class _$ArticleImpl with HiveObjectMixin implements _Article {
   @override
   @HiveField(8)
   final String? content;
+  @override
+  @HiveField(9)
+  final NewsCategory? category;
 
   @override
   String toString() {
-    return 'Article(source: $source, author: $author, title: $title, description: $description, url: $url, urlToImage: $urlToImage, publishedAt: $publishedAt, content: $content)';
+    return 'Article(source: $source, author: $author, title: $title, description: $description, url: $url, urlToImage: $urlToImage, publishedAt: $publishedAt, content: $content, category: $category)';
   }
 
   @override
@@ -451,13 +469,15 @@ class _$ArticleImpl with HiveObjectMixin implements _Article {
                 other.urlToImage == urlToImage) &&
             (identical(other.publishedAt, publishedAt) ||
                 other.publishedAt == publishedAt) &&
-            (identical(other.content, content) || other.content == content));
+            (identical(other.content, content) || other.content == content) &&
+            (identical(other.category, category) ||
+                other.category == category));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, source, author, title,
-      description, url, urlToImage, publishedAt, content);
+      description, url, urlToImage, publishedAt, content, category);
 
   @JsonKey(ignore: true)
   @override
@@ -482,7 +502,8 @@ abstract class _Article implements Article, HiveObjectMixin {
       @HiveField(5) final String? url,
       @HiveField(6) final String? urlToImage,
       @HiveField(7) final DateTime? publishedAt,
-      @HiveField(8) final String? content}) = _$ArticleImpl;
+      @HiveField(8) final String? content,
+      @HiveField(9) final NewsCategory? category}) = _$ArticleImpl;
 
   factory _Article.fromJson(Map<String, dynamic> json) = _$ArticleImpl.fromJson;
 
@@ -510,6 +531,9 @@ abstract class _Article implements Article, HiveObjectMixin {
   @override
   @HiveField(8)
   String? get content;
+  @override
+  @HiveField(9)
+  NewsCategory? get category;
   @override
   @JsonKey(ignore: true)
   _$$ArticleImplCopyWith<_$ArticleImpl> get copyWith =>
