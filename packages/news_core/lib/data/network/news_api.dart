@@ -33,9 +33,9 @@ class NewsApiImp extends NewsApi {
     };
     var res = await dioClient.dio.get("/everything", queryParameters: query);
     //add category to articles
-    (res.data['articles'] as List<dynamic>).forEach(
-      (e) => e.addEntries([MapEntry("category", category?.name)]),
-    );
+    for (var e in (res.data['articles'] as List<dynamic>)) {
+      e.addEntries([MapEntry("category", category?.name)]);
+    }
 
     return NewsData.fromJson(res.data).articles;
   }

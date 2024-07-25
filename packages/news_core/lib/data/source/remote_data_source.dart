@@ -1,7 +1,3 @@
-import 'dart:math';
-
-
-import 'package:collection/collection.dart';
 import 'package:news_core/data/model/model.dart';
 import 'package:news_core/data/network/news_api.dart';
 import 'package:news_core/data/source/data_source.dart';
@@ -19,10 +15,10 @@ class NetworkDataSourceImp extends DataSource {
       newsApi.getAppleNews(page: page, sort: sort),
       newsApi.getGoogleNews(page: page, sort: sort),
     ]).then(
-      (value) {
+          (value) {
         List<Article>? result = [];
         int maxLength =
-            value.map((list) => list.length).reduce((a, b) => a > b ? a : b);
+        value.map((list) => list.length).reduce((a, b) => a > b ? a : b);
 
         for (int i = 0; i < maxLength; i++) {
           for (int j = 0; j < value.length; j++) {
@@ -31,9 +27,7 @@ class NetworkDataSourceImp extends DataSource {
             }
           }
         }
-
-        result.forEach((element)=>print(element.category),);
-
+        return result.isNotEmpty ? result : null;
       },
     );
     return null;
