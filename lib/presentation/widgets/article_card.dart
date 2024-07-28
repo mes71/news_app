@@ -1,5 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:vector_graphics/vector_graphics.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:news_app/data/config/assets.dart';
+import 'package:news_app/presentation/widgets/logo.dart';
 import 'package:news_core/news_core.dart';
 
 class ArticleCard extends StatelessWidget {
@@ -17,17 +21,38 @@ class ArticleCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (article.urlToImage != null)
-            ClipRRect(
-                borderRadius: BorderRadius.circular(14),
-                child: CachedNetworkImage(
-                    imageUrl: article.urlToImage ?? '',
-                    fit: BoxFit.cover,
-                    width: double.infinity,
-                    height: 200,
-                    placeholder: (context, url) => Center(
-                          child: CircularProgressIndicator(),
-                        ))),
+          ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child: Stack(
+                children: [
+                  article.urlToImage != null
+                      ? CachedNetworkImage(
+                          imageUrl: article.urlToImage!,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 200,
+                          placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(),
+                              ))
+                      : const Center(
+                          child: SizedBox(
+                            height: 200,
+                            child: SvgPicture(
+                              AssetBytesLoader(Assets.iconsImageNotFoundVec),
+                              height: 80,
+                              width: 80,
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
+                            ),
+                          ),
+                        ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    child: LogoWidget(category: article.category!),
+                  )
+                ],
+              )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
