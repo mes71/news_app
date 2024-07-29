@@ -24,11 +24,11 @@ class SplashPage extends GetView<RootController> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight),
         ),
-        child: Stack(
+        child: const Stack(
           fit: StackFit.expand,
           alignment: Alignment.bottomCenter,
           children: [
-            const Positioned(
+            Positioned(
               bottom: 50,
               child: SizedBox(
                   width: 20,
@@ -36,16 +36,6 @@ class SplashPage extends GetView<RootController> {
                   child: CircularProgressIndicator(
                     color: Colors.redAccent,
                   )),
-            ),
-            Positioned(
-              bottom: 10,
-              child: Obx(() {
-                return Visibility(
-                    visible: controller.connectionStatus
-                        .contains(ConnectivityResult.none),
-                    child: const Text(
-                        "You are offline, will access to cached data"));
-              }),
             ),
           ],
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/data/controller/root/root_controller.dart';
 import 'package:news_app/presentation/widgets/article_card.dart';
+import 'package:news_core/news_core.dart';
 
 class HomePage extends GetView<RootController> {
   HomePage({super.key}) {
@@ -11,9 +12,7 @@ class HomePage extends GetView<RootController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: newsListVIew()
-      ),
+      body: SafeArea(child: newsListVIew()),
     );
   }
 
@@ -21,11 +20,12 @@ class HomePage extends GetView<RootController> {
     return controller.obx(
         (state) => ListView.builder(
             itemBuilder: (context, index) {
-              //controller.cashNews(controller.newsList[index]);
+              Article article = controller.newsList[index];
+              controller.cashNews(article);
               return ArticleCard(
-                article: controller.newsList[index],
+                article: article,
                 onPressed: () {
-                  controller.selectArticle(controller.newsList[index]);
+                  controller.selectArticle(article);
                 },
               );
             },
@@ -66,6 +66,4 @@ class HomePage extends GetView<RootController> {
       ],
     );
   }
-
-
 }

@@ -4,8 +4,8 @@ import 'package:news_core/data/model/model.dart';
 import 'package:news_core/data/network/news_api.dart';
 import 'package:news_core/data/source/data_source.dart';
 
-class NetworkDataSourceImp extends DataSource {
-  NetworkDataSourceImp(this.newsApi);
+class RemoteDataSource extends DataSource {
+  RemoteDataSource(this.newsApi);
 
   final NewsApi newsApi;
 

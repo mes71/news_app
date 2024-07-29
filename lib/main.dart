@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import "package:flutter_dotenv/flutter_dotenv.dart" as DotEnv;
 import 'package:get/get.dart';
 import 'package:news_app/data/di/di.dart';
 import 'package:news_app/data/routes/routes.dart';
+import 'package:news_core/news_core.dart';
 
 Future<void> main() async {
- await DotEnv.dotenv.load(fileName: 'packages/news_core/.env');
-  setup();
+
+  await initNewsCore();
+  await setup();
   runApp(const MyApp());
 }
 
