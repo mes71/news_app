@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:news_app/data/controller/root/root_controller.dart';
 import 'package:news_app/presentation/widgets/article_card.dart';
-import 'package:news_core/news_core.dart';
 
 class HomePage extends GetView<RootController> {
   HomePage({super.key}) {
@@ -13,9 +12,7 @@ class HomePage extends GetView<RootController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [categoryWidget(), Expanded(child: newsListVIew())],
-        ),
+        child: newsListVIew()
       ),
     );
   }
@@ -42,6 +39,8 @@ class HomePage extends GetView<RootController> {
 
   Widget errorStateWidget(error) => const Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Icon(
               Icons.error_outline_outlined,
@@ -68,25 +67,5 @@ class HomePage extends GetView<RootController> {
     );
   }
 
-  Widget categoryWidget() {
-    return Obx(() => Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Wrap(
-            spacing: 5,
-            children: NewsCategory.values
-                .map(
-                  (e) => ChoiceChip(
-                    padding: const EdgeInsets.all(8),
-                    label: Text('${e.name}'),
-                    selectedColor: Colors.green,
-                    onSelected: (bool selected) {
-                     //controller.changeCategory(e);
-                    },
-                    selected: controller.selectedCategory.value == e,
-                  ),
-                )
-                .toList(),
-          ),
-        ));
-  }
+
 }
